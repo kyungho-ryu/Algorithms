@@ -1,11 +1,17 @@
 def solution(clothes):
-    hash_table = {}
+    hash_map = {}
     count = 1
+    for name, key in clothes :
+        hash_map[key] = hash_map.get(key, 0) +1
 
-    for cloth, kind in clothes :
-        hash_table[kind] = hash_table.get(kind, 0) + 1
+    for value in hash_map.values() :
+        count *= value+1
 
-    for k in hash_table.values() :
-        count *= k+1
 
-    return count -1 
+    return count-1
+
+
+
+print(solution([["yellow_hat", "headgear"], ["blue_sunglasses", "eyewear"], ["green_turban", "headgear"]]))
+print(solution([["crow_mask", "face"], ["blue_sunglasses", "face"], ["smoky_makeup", "face"]]))
+
