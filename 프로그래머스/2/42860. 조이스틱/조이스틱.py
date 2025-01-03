@@ -15,8 +15,8 @@ def solution(name):
         while next_idx < n and name[next_idx] == 'A':
             next_idx += 1
         # 왼쪽으로 갔다가 오른쪽으로 돌아오는 경우
-        min_move = min(min_move, 2 * i + n - next_idx)
-        # 오른쪽으로 갔다가 왼쪽으로 돌아오는 경우
         min_move = min(min_move, i + 2 * (n - next_idx))
+        # 오른쪽으로 갔다가 왼쪽으로 돌아오는 경우
+        min_move = min(min_move, 2 * i + n - next_idx)
     
     return moves + min_move
