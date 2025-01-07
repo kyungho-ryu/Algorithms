@@ -1,30 +1,27 @@
 from itertools import permutations
 
-def cal_func(data) :
-    for i in range(len(data)) :
-        if data[i] != 0 :
-            data = int(data[i:])
-            break
-
-    if data == 0 or data ==1 :
-        return 0
-    for i in range(2, data) :
+def is_prime(data) :
+    if data < 2  :
+        return False
+    for i in range(2, int(data**0.5)+1) :
         if data % i == 0 :
-            return 0
-
-    return data
+            return False
+    return True
 
 
 def solution(numbers):
     answer = set()
-
     for i in range(len(numbers)):
-        temp = set(permutations(numbers, i+1))
-
+        temp = permutations(numbers, i+1)
         for number in temp :
-            comb = "".join(number)
-            answer.add(cal_func(comb))
-    return len(answer) - 1
+            comb = int("".join(number))
+            answer.add(comb)
+
+    prime_count = 0
+    for num in answer :
+        if is_prime(num) : prime_count +=1
+
+    return prime_count
 
 
 # numbers는 길이 1 이상 7 이하인 문자열입니다.
