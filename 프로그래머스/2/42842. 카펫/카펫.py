@@ -1,13 +1,12 @@
 def solution(brown, yellow):
-    total_num = int(brown / 2)
-    for i in range(3, total_num) :
-        j = total_num-i
+    total_tiles = brown + yellow
 
-        if yellow == (i-2) * j :
-            return [i, j+2] if i > j+2 else [j+2, i]
-
+    for i in range(3, int(total_tiles**0.5)+1) :
+        if total_tiles % i == 0 :
+            j = total_tiles // i
+            if yellow == (i-2) * (j-2) :
+                return [j, i]
     return []
-
 
 # 제한사항
 # 갈색 격자의 수 brown은 8 이상 5,000 이하인 자연수입니다.
