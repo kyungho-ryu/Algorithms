@@ -1,15 +1,24 @@
 def solution(n, computers):
-    answer = 0
-    dict_data = {i: computers[i] for i in range(len(computers))}
-    visited = [False] * len(computers)
-    while dict_data :
-        stack = [[list(dict_data.keys())[0], dict_data.pop(list(dict_data.keys())[0])]]
-        while stack :
-            index, link = stack.pop()
-            for i in range(len(link)):
-                if link[i] == 1 and i in dict_data.keys():
-                    stack.append([i, dict_data.pop(i)])
+    def dfs(i, visited) :
+        visited[i] = True
+        for j in range(n) :
+            if not visited[j] and computers[i][j] ==1 :
+                dfs(j, visited)
 
-        answer +=1
+    answer = 0
+    visited = [False] * n
+    for i in range(n) :
+        if not visited[i] :
+            dfs(i, visited)
+            answer +=1
 
     return answer
+
+# 제한사항
+# 컴퓨터의 개수 n은 1 이상 200 이하인 자연수입니다.
+# 각 컴퓨터는 0부터 n-1인 정수로 표현합니다.
+# i번 컴퓨터와 j번 컴퓨터가 연결되어 있으면 computers[i][j]를 1로 표현합니다.
+# computer[i][i]는 항상 1입니다.
+
+print(solution(3, [[1, 1, 0], [1, 1, 0], [0, 0, 1]])) # 2
+print(solution(3, [[1, 1, 0], [1, 1, 1], [0, 1, 1]]	)) # 1
