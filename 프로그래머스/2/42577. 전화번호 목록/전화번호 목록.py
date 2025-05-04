@@ -1,16 +1,17 @@
-def solution(phone_book):
-    hash_table = {}
-    for num in phone_book:
-        hash_table[num] = True
 
-    for num in phone_book :
+
+def solution(phonebooks) :
+    hashmap = {}
+    for phone in phonebooks :
+        hashmap[phone] = True
+
+    for phone in phonebooks :
         temp = ""
-        for char in num :
-            temp +=char
-            if temp in hash_table.keys() and temp != num :
-                return False
-    return True
+        for char in phone :
+            temp += char
+            if temp in hashmap and temp != phone : return False
 
+    return True
 
 print(solution(["119", "97674223", "1195524421"]))
 print(solution(["123", "456", "789"]))
