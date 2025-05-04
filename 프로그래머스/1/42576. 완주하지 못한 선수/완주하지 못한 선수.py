@@ -1,14 +1,13 @@
-def solution(participant, completion):
-    participants = sorted(participant)
-    completions = sorted(completion)
 
-    for i in range(len(completions)) :
-        if participants[i] != completions[i] :
-            return  participants[i]
+
+def solution(participants, completions) :
+    participants.sort()
+    completions.sort()
+
+    for p, c in zip(participants, completions) :
+        if p != c :
+            return p
 
     return participants[-1]
 
-
-print(solution(["leo", "kiki", "eden"], ["eden", "kiki"]))
-print(solution(["marina", "josipa", "nikola", "vinko", "filipa"], ["josipa", "filipa", "marina", "nikola"]))
-print(solution(["mislav", "stanko", "mislav", "ana"], ["stanko", "ana", "mislav"]))
+print(solution(["leo", "kiki", "eden"]	, ["eden", "kiki"]	))
