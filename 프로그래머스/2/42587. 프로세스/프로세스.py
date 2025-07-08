@@ -1,18 +1,18 @@
 from collections import deque
 
 def solution(priorities, location):
-    cumulative_works = 0
-    temp = deque([p, i]for i, p in enumerate(priorities))
-
-    while len(temp) >= 0 :
-        current_work = temp.popleft()
-        if any(current_work[0] < work[0] for work in temp) :
-            temp.append(current_work)
+    answer = 0
+    sorted_priorities = sorted(priorities)
+    queue = deque(i for i in range(len(priorities)))
+    
+    while queue :
+        value = queue.popleft()
+        
+        if sorted_priorities[-1] == priorities[value] :
+            answer += 1
+            sorted_priorities.pop(-1)
+            if value == location: break
         else :
-            cumulative_works +=1
-            if current_work[1] == location :
-                return cumulative_works
-
-
-print(solution([2, 1, 3, 2], 2))
-print(solution([1, 1, 9, 1, 1, 1], 0))
+            queue.append(value)
+    
+    return answer
