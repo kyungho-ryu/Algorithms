@@ -1,11 +1,18 @@
 def solution(numbers, target) :
-    def dfs (index, _sum) :
-        if index == len(numbers) :
-            return 1 if _sum == target else 0 
-        
-        return dfs(index+1, _sum + numbers[index]) + dfs(index + 1 , _sum - numbers[index])
-    
+    def dfs(i, sum) :
+        answer = 0
+        if i == len(numbers) :
+            if target == sum :
+                return 1
+            else :
+                return 0
+
+        for sym in [-1, 1] :
+            v = numbers[i] * sym
+            answer += dfs(i+1, v+sum)
+
+        return answer
+
     return dfs(0, 0)
-        
-    
-print(solution([1,1,1,1,1], 3))
+
+print(solution([4,1,2,1]	, 2))
