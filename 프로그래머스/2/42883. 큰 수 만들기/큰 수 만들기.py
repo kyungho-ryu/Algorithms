@@ -1,17 +1,14 @@
+# return: k개의 수를 제거했을 때 얻을 수 있는 가장 큰 숫자
 def solution(number, k):
-    answer = []
+    stack = []
+    _k = k
+    for n in number:
+        while stack and _k > 0 and stack[-1] < n:
+            stack.pop(-1)
+            _k -=1
+        stack.append(n)
 
-    for n in number :
-        while answer and answer[-1] < n and k>0:
-            answer.pop(-1)
-            k -=1
+    for i in range(_k) :
+        stack.pop(-1)
 
-        answer.append(n)
-    return ''.join(answer)[0:len(answer)-k]
-
-# 제한 조건
-# number는 2자리 이상, 1,000,000자리 이하인 숫자입니다.
-# k는 1 이상 number의 자릿수 미만인 자연수입니다.
-print(solution("1924", 2)) # 94
-print(solution("1231234", 3)) # 3234
-print(solution("4177252841", 4)) # 775841
+    return ''.join(stack)
