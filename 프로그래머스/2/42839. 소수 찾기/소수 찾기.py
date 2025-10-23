@@ -1,31 +1,42 @@
-from itertools import permutations
-
-def is_prime(data) :
-    if data < 2  :
+from itertools import permutations, combinations
+import math
+def check_sosu(n) :
+    if n == 0 or n == 1: 
         return False
-    for i in range(2, int(data**0.5)+1) :
-        if data % i == 0 :
-            return False
-    return True
+    elif n == 2:
+        return True
+    else :
+        for i in range(2, int(n**0.5)+1) :
+            if n % i == 0 and n != i:
+                return False
 
-
-def solution(numbers):
+        return True
+            
+    
+# 만들 수 있는 소수가 몇 개인지 return
+def solution(number):
     answer = set()
-    for i in range(len(numbers)):
-        temp = permutations(numbers, i+1)
-        for number in temp :
-            comb = int("".join(number))
-            answer.add(comb)
+    list_number = [n for n in number]
+    
+    for i in range(1, len(number)+1) :
+        if i == 1 :
+            for n in list_number :
+                if check_sosu(int(n)) : answer.add(int(n)) 
+        else :
+            pm = list(permutations(list_number, i))
+            for n in pm :
+                temp = ""
+                for i, char in enumerate(n) :
+                    if i == 0 and char == '0' : 
+                        continue
+                    else :
+                        temp += char
+                if check_sosu(int(temp)) : answer.add(int(temp)) 
+    
+    return len(answer)
 
-    prime_count = 0
-    for num in answer :
-        if is_prime(num) : prime_count +=1
+# 1이상 7이하 문자열, 0~9까지 숫자
+# #  17 -> [7, 17, 71]
+# number = "17" 
 
-    return prime_count
-
-
-# numbers는 길이 1 이상 7 이하인 문자열입니다.
-# numbers는 0~9까지 숫자만으로 이루어져 있습니다.
-# "013"은 0, 1, 3 숫자가 적힌 종이 조각이 흩어져있다는 의미입니다.
-print(solution("17")) # 3
-print(solution("011")) # 2
+# print(solution(number))
