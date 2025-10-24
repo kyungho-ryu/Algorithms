@@ -1,25 +1,29 @@
 from collections import deque
 
+def get_node(computer, visited) :
+    temp = []
+    for i, v in enumerate(computer) :
+        if v and not visited[i] :
+            temp.append(i)
+
+    return temp
+
 def solution(n, computers) :
-    visited = [False] * n
-    
-    count = 0 
-    for j in range(n) :
-        if not visited[j] :
-            queue = deque()
-            queue.append(j)
-            visited[j] = True
+    answer = 0
+    visited = [False for _ in range(len(computers))]
+    for i, network in enumerate(computers) :
+        if visited[i] :
+            continue
 
-            while queue :
-                q = queue.popleft()
-                for i, c in enumerate(computers[q]) :
-                    if not visited[i] and c == 1 :
-                        queue.append(i)                
-                        visited[i] = True
-            count += 1
-            
-    return count
-    
+        visited[i] = True
+        Q = deque(get_node(network, visited))
+        while Q :
+            node = Q.popleft()
 
+            visited[node] = True
+            new_nodes = get_node(computers[node], visited)
+            for nn in new_nodes : Q.append(nn)
 
-solution(3, [[1, 1, 0], [1, 1, 0], [0, 0, 1]])
+        answer +=1
+
+    return answer
